@@ -1,0 +1,336 @@
+{
+  "info": {
+    "_postman_id": "d3d504fc-bfbf-427c-bc95-e9404ffd1c96",
+    "name": "Ron Swanson",
+    "description": "A bunch of requests to test Ron Swanson",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "quotes",
+      "item": [
+        {
+          "name": "single quote",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "8c66c249-b587-43b5-a60f-34e869d77cae",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 200ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "",
+                  "pm.test(\"response must be valid and have a body\", function () {",
+                  "     pm.response.to.be.ok;",
+                  "     pm.response.to.be.withBody;",
+                  "     pm.response.to.be.json;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ron-swanson-quotes.herokuapp.com/v2/quotes",
+              "protocol": "https",
+              "host": [
+                "ron-swanson-quotes",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "v2",
+                "quotes"
+              ]
+            },
+            "description": "valid request to return a single quote"
+          },
+          "response": []
+        }
+      ],
+      "description": "Set of tests to run against the quotes endpoint",
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "count",
+      "item": [
+        {
+          "name": "count with value of 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2d872c88-3e8f-44bd-91ac-f5a20fed4f16",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains 2 quotes\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.lengthOf(2);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ron-swanson-quotes.herokuapp.com/v2/quotes/2",
+              "protocol": "https",
+              "host": [
+                "ron-swanson-quotes",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "v2",
+                "quotes",
+                "2"
+              ]
+            },
+            "description": "valid request to return a count of two quotes"
+          },
+          "response": []
+        },
+        {
+          "name": "random count value",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ce2b4d9c-99e6-47a9-a06c-ce998ecec37a",
+                "exec": [
+                  "pm.environment.set(\"user\", \"rswanson\");",
+                  "",
+                  "pm.variables.get(\"variable_key\");",
+                  "",
+                  "pm.environment.set(\"random_email\", \"rswanson\");",
+                  "",
+                  "let random_value = Math.floor(Math.random() * 10);",
+                  "pm.collectionVariables.set(\"number_quotes\", random_value);",
+                  "console.log (pm.collectionVariables.get(\"number_quotes\"));"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "c163762a-5d5d-4c72-8c9d-355828d102fc",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains the expected number of quotes\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    var expected_length = pm.collectionVariables.get(\"number_quotes\");",
+                  "    pm.expect(jsonData).to.have.lengthOf(expected_length);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ron-swanson-quotes.herokuapp.com/v2/quotes/{{number_quotes}}",
+              "protocol": "https",
+              "host": [
+                "ron-swanson-quotes",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "v2",
+                "quotes",
+                "{{number_quotes}}"
+              ]
+            },
+            "description": "valid request to return a count of two quotes"
+          },
+          "response": []
+        }
+      ],
+      "description": "Set of tests to run against the count endpoint",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "9a383595-accf-4085-a53c-029453a224b4",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "1b1510d1-2eeb-43cf-af46-f4fd711674f3",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "search",
+      "item": [
+        {
+          "name": "existing search term",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2b144a7b-b23c-401c-abd0-b7f3b2d92d71",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "65996339-6871-46fb-9759-d0d992e24a4b",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ron-swanson-quotes.herokuapp.com/v2/quotes/search/steak",
+              "protocol": "https",
+              "host": [
+                "ron-swanson-quotes",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "v2",
+                "quotes",
+                "search",
+                "steak"
+              ]
+            },
+            "description": "valid request to return a count of two quotes"
+          },
+          "response": []
+        },
+        {
+          "name": "non existing search term",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "383ce741-94e5-42af-bbe4-c661e000795b",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "3bc630de-b158-416b-9ef3-bdebbadddd82",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response body contains the expected number of quotes\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    var expected_length = 0;",
+                  "    pm.expect(jsonData).to.have.lengthOf(expected_length);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ron-swanson-quotes.herokuapp.com/v2/quotes/search/unicorn",
+              "protocol": "https",
+              "host": [
+                "ron-swanson-quotes",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "v2",
+                "quotes",
+                "search",
+                "unicorn"
+              ]
+            },
+            "description": "valid request to return a count of two quotes"
+          },
+          "response": []
+        }
+      ],
+      "description": "Set of tests to run against the search endpoint",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "88a654dd-e96c-4d5a-aff4-40505e819d2f",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "8f58603d-f933-4bdb-8989-75d76503cff8",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {}
+    }
+  ],
+  "variable": [
+    {
+      "id": "5a25b895-df04-4ab5-b35a-59de31298ae1",
+      "key": "number_quotes",
+      "value": ""
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

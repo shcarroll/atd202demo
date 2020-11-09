@@ -1,0 +1,37 @@
+stages:
+  - test
+  - staging
+  - deploy
+
+postman-demo-test:
+  stage: test
+  image:
+    name: dannydainton/htmlextra
+    entrypoint: [""]
+  script:
+    - newman run collections/ron_swanson_collection.json -e envs/test_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/test-env-report.html
+  artifacts:
+    paths:
+      - reports/
+    expire_in: 2 weeks
+
+postman-demo-staging:
+  stage: staging
+  image:
+    name: dannydainton/htmlextra
+    entrypoint: [""]
+  script:
+    - newman run collections/ron_swanson_collection.json -e envs/staging_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/staging-env-report.html
+  artifacts:
+    paths:
+      - reports/
+    expire_in: 2 weeks
+
+pages:
+  stage: deploy
+  script:
+    - mv reports/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days

@@ -1,0 +1,24 @@
+{
+  "name": "postman-demo",
+  "version": "1.0.0",
+  "description": "postman automation demo",
+  "main": "index.js",
+  "dependencies": {
+    "newman": "^5.1.2",
+    "newman-reporter-htmlextra": "^1.19.0"
+  },
+  "devDependencies": {
+    "mkdirp": "^1.0.3",
+    "npm": "^6.13.7",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "clean": "rimraf reports/; mkdirp reports/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC"
+}

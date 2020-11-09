@@ -1,0 +1,44 @@
+{
+  "id": "f5ac1a85-d3d1-4a1a-971c-5442845a944e",
+  "name": "test",
+  "values": [
+    {
+      "key": "user",
+      "value": "rswanson",
+      "enabled": true
+    },
+    {
+      "key": "account",
+      "value": "demo",
+      "enabled": true
+    },
+    {
+      "key": "location",
+      "value": "pawnee",
+      "enabled": true
+    },
+    {
+      "key": "admin_user",
+      "value": "lknope",
+      "enabled": true
+    },
+    {
+      "key": "super_user",
+      "value": "aperkins",
+      "enabled": true
+    },
+    {
+      "key": "timeout_value",
+      "value": "60",
+      "enabled": true
+    },
+    {
+      "key": "random_email",
+      "value": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2020-11-05T11:33:04.926Z",
+  "_postman_exported_using": "Postman/7.34.0"
+}
